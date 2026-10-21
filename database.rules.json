@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "rooms": {
+      "$room": {
+        ".read": "data.exists()",
+        ".write": "auth != null",
+        "players": {
+          "$player": {
+            ".write": "auth != null"
+          }
+        }
+      }
+    }
+  }
+}

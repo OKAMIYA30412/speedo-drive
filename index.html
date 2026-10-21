@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07100b">
+<meta name="description" content="Speedo Drive — type fast, race hard.">
+<title>Speedo Drive</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#050907;--panel:#0b1510;--panel2:#101f16;--green:#a6ff4d;--green2:#43e86e;--muted:#8fa394;--line:#203829;--red:#ff5c70}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#18351f 0,transparent 55%),var(--bg);color:#eff8ef;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:1px solid #3d6c46;background:#14291a;color:#eff8ef;padding:12px 15px;border-radius:12px;font-weight:750}button:active{transform:scale(.98)}button.primary{background:var(--green);color:#071006;border-color:var(--green)}button:disabled{opacity:.45;cursor:not-allowed}
+.wrap{max-width:1000px;margin:auto;padding:18px 14px 38px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{font-weight:1000;font-size:clamp(21px,5vw,30px);letter-spacing:-1px}.brand span{color:var(--green)}.tag{color:var(--muted);font-size:12px;letter-spacing:2px;font-weight:800}.pill{border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted);font-size:12px}
+.hero{border:1px solid #27472d;background:linear-gradient(145deg,#102218,#07100b 68%);border-radius:22px;padding:18px;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #a6ff4d20;border-radius:50%;right:-45px;top:-60px;box-shadow:0 0 0 25px #a6ff4d08,0 0 0 50px #a6ff4d05;pointer-events:none}.hero h1{font-size:clamp(28px,7vw,48px);line-height:1.02;margin:9px 0 8px;letter-spacing:-1.5px}.hero h1 em{font-style:normal;color:var(--green)}.hero p{color:#b5c8b8;max-width:550px;margin:0 0 15px}.tabs{display:flex;gap:8px;overflow:auto;margin:16px 0}.tabs button{white-space:nowrap;padding:9px 13px;background:#0a130d;border-color:var(--line);color:#a8b9ab}.tabs button.active{background:#1a321e;color:var(--green);border-color:#507b3b}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel{border:1px solid var(--line);background:linear-gradient(160deg,#0d1811,#080e0a);border-radius:18px;padding:16px;min-width:0}.panel h2{font-size:16px;margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.stat{background:#07100b;border:1px solid var(--line);padding:10px;border-radius:12px}.stat strong{display:block;font-size:23px;color:var(--green);line-height:1.1}.stat span{font-size:11px;color:var(--muted);letter-spacing:.7px}
+.track{background:#050907;border:1px solid #263b2b;border-radius:14px;padding:12px;overflow:hidden}.lane{height:44px;position:relative;border-bottom:1px dashed #29412f;margin-bottom:4px;background:repeating-linear-gradient(90deg,transparent 0 48px,#1b2c20 49px 51px)}.lane:last-child{border:0}.car{position:absolute;left:0;top:6px;width:48px;height:28px;border-radius:8px 13px 8px 8px;background:var(--green);box-shadow:0 0 18px #a6ff4d55;transition:left .12s linear}.car:before{content:"";position:absolute;left:10px;top:4px;width:20px;height:9px;background:#13251a;border-radius:5px 7px 2px 2px}.car:after{content:"";position:absolute;right:5px;top:9px;width:4px;height:8px;background:#f9fff0;border-radius:3px}.car.cpu{background:#53b7ff;box-shadow:0 0 14px #53b7ff55}.car.cpu:before{background:#12344a}.lane-label{position:absolute;left:5px;bottom:1px;font-size:9px;color:#819686;z-index:2}.finish{position:absolute;right:0;top:0;height:100%;width:8px;background:repeating-linear-gradient(0deg,#fff 0 5px,#111 5px 10px);opacity:.8}
+.prompt{font-size:16px;line-height:1.8;letter-spacing:.15px;min-height:92px;background:#050a06;border:1px solid #1f3625;border-radius:12px;padding:12px;overflow-wrap:anywhere}.prompt .done{color:var(--green)}.prompt .wrong{background:#5a2027;color:#fff;border-radius:3px}.prompt .next{border-bottom:2px solid var(--green)}textarea{width:100%;min-height:94px;resize:vertical;margin-top:10px;padding:12px;background:#050a06;border:1px solid #2a4931;border-radius:12px;color:white;outline:none}textarea:focus{border-color:var(--green)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions button{flex:1}.bar{height:8px;border-radius:99px;background:#17241a;overflow:hidden;margin:9px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green2),var(--green));width:0%;transition:width .15s}
+.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.field input{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:#050a06;color:white}.hidden{display:none!important}.notice{border:1px solid #4b6533;background:#172416;color:#d7f7bd;border-radius:12px;padding:11px;font-size:13px;margin-top:10px}.leader{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #1b2b20}.leader:last-child{border:0}.result{font-size:22px;font-weight:900;color:var(--green)}footer{text-align:center;color:#647568;font-size:11px;padding:24px 0}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding:13px 11px 30px}.hero{padding:16px}.stats{gap:6px}.stat{padding:9px}.stat strong{font-size:20px}.panel{padding:13px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div><div class="brand">SPEEDO <span>DRIVE</span></div><div class="tag">TYPE FAST. RACE HARD.</div></div><div class="pill" id="connection">LOCAL RACE READY</div></header>
+  <section class="hero">
+    <div class="tag">NEON CIRCUIT / SECTOR 01</div>
+    <h1>YOUR WORDS.<br><em>YOUR SPEED.</em></h1>
+    <p>Turn every keystroke into horsepower. Beat the bots, sharpen your accuracy, and chase a new personal best.</p>
+    <button class="primary" id="startBtn">START ENGINE ↗</button>
+  </section>
+  <nav class="tabs"><button class="active" data-tab="race">Race</button><button data-tab="online">Online lobby</button><button data-tab="stats">My stats</button></nav>
+
+  <section id="raceView">
+    <div class="grid">
+      <div class="panel">
+        <h2>🏁 CIRCUIT RACE <span class="muted small" id="raceStatus">· READY</span></h2>
+        <div class="track" id="track">
+          <div class="lane"><span class="lane-label">YOU</span><div class="car" id="playerCar"></div><div class="finish"></div></div>
+          <div class="lane"><span class="lane-label">BOT / VOLT</span><div class="car cpu" id="bot1"></div><div class="finish"></div></div>
+          <div class="lane"><span class="lane-label">BOT / PHANTOM</span><div class="car cpu" id="bot2" style="background:#d18cff"></div><div class="finish"></div></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong id="wpm">0</strong><span>WPM</span></div>
+          <div class="stat"><strong id="accuracy">100%</strong><span>ACCURACY</span></div>
+          <div class="stat"><strong id="time">0.0s</strong><span>TIME</span></div>
+        </div>
+        <div class="small muted">RACE PROGRESS <span id="progressLabel">0%</span></div><div class="bar"><i id="progressBar"></i></div>
+        <h2 style="margin-top:17px">TYPE TO ACCELERATE</h2>
+        <div class="prompt" id="prompt" aria-label="Text to type"></div>
+        <textarea id="typing" placeholder="Tap here, then type the text above…" autocomplete="off" autocapitalize="off" spellcheck="false" disabled></textarea>
+        <div class="actions"><button class="primary" id="restartBtn">RESTART RACE</button><button id="nextBtn">NEW TEXT ↻</button></div>
+        <div id="result" class="notice hidden" aria-live="polite"></div>
+      </div>
+      <aside class="panel">
+        <h2>DRIVER CONSOLE</h2>
+        <p class="muted small">Every correct character adds speed. Mistakes reduce accuracy; steady typing is how you win.</p>
+        <div class="leader"><span>Driver</span><strong>YOU / GREEN</strong></div>
+        <div class="leader"><span>Opponent 01</span><strong style="color:#53b7ff">VOLT</strong></div>
+        <div class="leader"><span>Opponent 02</span><strong style="color:#d18cff">PHANTOM</strong></div>
+        <h2 style="margin-top:18px">RACE RULES</h2>
+        <p class="small muted">• Type the displayed passage.<br>• Your car advances with correct characters.<br>• Finish the passage to end the race.<br>• WPM uses correct characters ÷ 5 per minute.<br>• Accuracy is correct typed characters ÷ all typed characters.</p>
+        <div class="notice">This starter build works offline as a local race. Real online races need the Firebase setup in the included README; the lobby will tell you if it isn't configured.</div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="onlineView" class="panel hidden">
+    <h2>🌐 ONLINE LOBBY</h2>
+    <p class="muted">Create a room code and share it with a friend. Both players must use the same deployed site with Firebase configured.</p>
+    <div class="field"><label for="playerName">Driver name</label><input id="playerName" maxlength="18" placeholder="e.g. NeonFox"></div>
+    <div class="field"><label for="roomCode">Room code</label><input id="roomCode" maxlength="10" placeholder="e.g. SPEED7"></div>
+    <div class="actions"><button class="primary" id="createRoom">CREATE ROOM</button><button id="joinRoom">JOIN ROOM</button></div>
+    <div class="actions"><button id="copyRoom">COPY ROOM INVITE</button><button id="leaveRoom">LEAVE ROOM</button></div>
+    <div id="onlineStatus" class="notice">Online mode is not connected yet. Follow README.md to add Firebase config.</div>
+    <div id="roomPlayers"></div>
+    <p class="small muted">Safety: use a nickname, not your full name or private information. Room codes are not account security.</p>
+  </section>
+
+  <section id="statsView" class="panel hidden">
+    <h2>📊 DRIVER RECORD</h2>
+    <div class="stats">
+      <div class="stat"><strong id="bestWpm">0</strong><span>BEST WPM</span></div>
+      <div class="stat"><strong id="races">0</strong><span>RACES FINISHED</span></div>
+      <div class="stat"><strong id="bestAccuracy">—</strong><span>BEST ACCURACY</span></div>
+    </div>
+    <p class="muted small">Your personal record is saved on this device in your browser. Clearing browser data may reset it.</p>
+    <button id="clearStats">RESET MY STATS</button>
+  </section>
+  <footer>SPEEDO DRIVE · NEON CIRCUIT · MADE FOR THE WEB</footer>
+</div>
+<script type="module">
+const $ = id => document.getElementById(id);
+const passages = [
+ "Carved by ancient ice, emerald waters wind between towering cliffs and roaring waterfalls.",
+ "The fastest driver is not always the one who starts first, but the one who keeps moving.",
+ "Neon lights reflect across the track as every precise keystroke pushes the engine forward.",
+ "Practice makes progress. Keep your focus steady, your fingers light, and your accuracy high.",
+ "Beyond the city skyline, a quiet road curves through mountains beneath a field of stars."
+];
+let target="",startedAt=0,started=false,finished=false,timer=null,botTimer=null,botProgress=[0,0],typedCount=0,correctCount=0;
+let stats=JSON.parse(localStorage.getItem("speedoStats")||'{"bestWpm":0,"races":0,"bestAccuracy":0}');
+function saveStats(){localStorage.setItem("speedoStats",JSON.stringify(stats));renderStats()}
+function renderStats(){$("bestWpm").textContent=stats.bestWpm||0;$("races").textContent=stats.races||0;$("bestAccuracy").textContent=stats.races?(stats.bestAccuracy||0)+"%":"—"}
+function newText(){target=passages[Math.floor(Math.random()*passages.length)];$("typing").value="";$("typing").disabled=true;started=false;finished=false;clearInterval(timer);clearInterval(botTimer);botProgress=[0,0];typedCount=0;correctCount=0;startedAt=0;$("wpm").textContent="0";$("accuracy").textContent="100%";$("time").textContent="0.0s";$("progressLabel").textContent="0%";$("progressBar").style.width="0%";$("result").classList.add("hidden");$("raceStatus").textContent="· READY";drawPrompt();moveCars();$("startBtn").textContent="START ENGINE ↗"}
+function drawPrompt(){const typed=$("typing").value;let html="";for(let i=0;i<target.length;i++){let c=escapeHtml(target[i]);if(i<typed.length){html+=`<span class="${typed[i]===target[i]?'done':'wrong'}">${c}</span>`}else if(i===typed.length){html+=`<span class="next">${c}</span>`}else html+=c}$("prompt").innerHTML=html}
+function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}
+function start(){if(started&&!finished){$("typing").focus();return}newText();started=true;startedAt=Date.now();$("typing").disabled=false;$("typing").focus();$("raceStatus").textContent="· LIVE";$("startBtn").textContent="RACE IN PROGRESS";timer=setInterval(updateStats,100);botTimer=setInterval(()=>{if(finished)return;botProgress[0]=Math.min(100,botProgress[0]+(.16+Math.random()*.2));botProgress[1]=Math.min(100,botProgress[1]+(.1+Math.random()*.19));moveCars();if(botProgress.some(v=>v>=100)&&!finished)finish("A bot crossed the finish line first.");},160)}
+function moveCars(){const max=$("track").clientWidth-60;$("playerCar").style.left=(Math.min(100,correctCount/Math.max(1,target.length)*100)/100*max)+"px";$("bot1").style.left=(botProgress[0]/100*max)+"px";$("bot2").style.left=(botProgress[1]/100*max)+"px"}
+function updateStats(){if(!started||finished)return;const seconds=(Date.now()-startedAt)/1000;const input=$("typing").value;typedCount=input.length;correctCount=0;for(let i=0;i<input.length;i++)if(input[i]===target[i])correctCount++;const wpm=seconds>0?Math.round(correctCount/5/(seconds/60)):0;const accuracy=typedCount?Math.round(correctCount/typedCount*100):100;$("wpm").textContent=wpm;$("accuracy").textContent=accuracy+"%";$("time").textContent=seconds.toFixed(1)+"s";const p=Math.min(100,correctCount/target.length*100);$("progressLabel").textContent=Math.floor(p)+"%";$("progressBar").style.width=p+"%";moveCars()}
+function finish(message){if(finished)return;finished=true;clearInterval(timer);clearInterval(botTimer);$("typing").disabled=true;const sec=Math.max(.1,(Date.now()-startedAt)/1000),wpm=Math.round(correctCount/5/(sec/60)),acc=typedCount?Math.round(correctCount/typedCount*100):100;const won=correctCount===target.length&&botProgress.every(v=>v<100);$("raceStatus").textContent=won?"· FINISHED":"· RACE OVER";$("result").classList.remove("hidden");$("result").innerHTML=`<strong>${won?"🏆 FINISH LINE!":"🏁 RACE OVER"}</strong><br>${won?"You finished the passage before the bots.":escapeHtml(message||"Race complete.")}<br><span class="small">Final score: ${wpm} WPM · ${acc}% accuracy · ${sec.toFixed(1)} seconds</span>`;if(correctCount===target.length){stats.races=(stats.races||0)+1;stats.bestWpm=Math.max(stats.bestWpm||0,wpm);stats.bestAccuracy=Math.max(stats.bestAccuracy||0,acc);saveStats()}}
+$("typing").addEventListener("input",()=>{if(!started||finished)return;drawPrompt();updateStats();if($("typing").value.length>=target.length){finish("Passage completed.");}});
+$("startBtn").addEventListener("click",start);$("restartBtn").addEventListener("click",()=>{newText();start()});$("nextBtn").addEventListener("click",()=>{newText();$("typing").disabled=true});
+/* Fix disabled state explicitly; the Start Engine button begins the next race. */
+$("nextBtn").addEventListener("click",()=>{$("typing").disabled=true;$("raceStatus").textContent="· READY";$("startBtn").textContent="START ENGINE ↗"});
+document.querySelectorAll("[data-tab]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b===btn));["race","online","stats"].forEach(t=>$(t+"View").classList.toggle("hidden",t!==btn.dataset.tab));if(btn.dataset.tab==="stats")renderStats()}));
+$("clearStats").addEventListener("click",()=>{if(confirm("Reset the stats saved on this device?")){stats={bestWpm:0,races:0,bestAccuracy:0};saveStats()}});
+newText();renderStats();
+
+/* Firebase multiplayer: enabled only when firebase-config.js is filled in. */
+let db=null,fbFns=null,currentRoom=null,unsubscribeRoom=null,playerId="p_"+Math.random().toString(36).slice(2,10);
+async function initFirebase(){try{const cfg=await import("./firebase-config.js");if(!cfg.firebaseConfig||!cfg.firebaseConfig.apiKey||cfg.firebaseConfig.apiKey.includes("PASTE_"))throw Error("Firebase config missing");const appMod=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");const dbMod=await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js");const app=appMod.initializeApp(cfg.firebaseConfig);db=dbMod.getDatabase(app);fbFns=dbMod;$("connection").textContent="ONLINE READY";$("onlineStatus").textContent="Connected to Firebase. Create a room or join one using a room code."}catch(e){$("connection").textContent="LOCAL RACE READY";$("onlineStatus").textContent="Online mode needs Firebase setup. Open README.md and follow the setup steps, then fill firebase-config.js."}}
+await initFirebase();
+function showPlayers(data){const entries=Object.entries(data?.players||{});$("roomPlayers").innerHTML=entries.map(([id,p])=>`<div class="leader"><span>${escapeHtml(p.name||"Driver")}${id===playerId?" (you)":""}</span><strong>${p.ready?"CONNECTED":"JOINED"}</strong></div>`).join("")||'<p class="muted small">No players yet.</p>'}
+async function roomAction(kind){if(!db){$("onlineStatus").textContent="Firebase is not configured. Follow README.md first.";return}const name=$("playerName").value.trim().slice(0,18)||"Driver";let code=$("roomCode").value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,10);if(kind==="create"&&!code)code=Math.random().toString(36).slice(2,7).toUpperCase();if(!code){$("onlineStatus").textContent="Enter a room code or create a room.";return}currentRoom=code;$("roomCode").value=code;const ref=fbFns.ref(db,"rooms/"+code);if(kind==="create"){await fbFns.set(ref,{createdAt:Date.now(),status:"waiting",players:{}})}await fbFns.set(fbFns.ref(db,`rooms/${code}/players/${playerId}`),{name,ready:true,joinedAt:Date.now(),wpm:0,progress:0});if(unsubscribeRoom)unsubscribeRoom();unsubscribeRoom=fbFns.onValue(ref,snap=>{const data=snap.val();if(!data){$("onlineStatus").textContent="Room not found or removed.";return}showPlayers(data);$("onlineStatus").textContent=`Room ${code} · ${Object.keys(data.players||{}).length} driver(s) connected. Share the room code with your friend.`});}
+$("createRoom").addEventListener("click",()=>roomAction("create").catch(e=>$("onlineStatus").textContent="Could not create room: "+e.message));$("joinRoom").addEventListener("click",()=>roomAction("join").catch(e=>$("onlineStatus").textContent="Could not join room: "+e.message));
+$("copyRoom").addEventListener("click",async()=>{if(!currentRoom){$("onlineStatus").textContent="Create or join a room first.";return}const invite=`Join my Speedo Drive race! Room code: ${currentRoom}\n${location.href}`;try{await navigator.clipboard.writeText(invite);$("onlineStatus").textContent="Invite copied. Send it to your friend."}catch{$("onlineStatus").textContent=invite}});
+$("leaveRoom").addEventListener("click",async()=>{if(unsubscribeRoom)unsubscribeRoom();if(db&&currentRoom)await fbFns.remove(fbFns.ref(db,`rooms/${currentRoom}/players/${playerId}`));currentRoom=null;$("roomPlayers").innerHTML="";$("onlineStatus").textContent=db?"You left the room.":"Online mode is not configured."});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body></html>
